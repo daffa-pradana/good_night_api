@@ -37,8 +37,6 @@ gem "thruster", require: false
 # gem "rack-cors"
 
 # Auth
-gem "devise"
-gem "devise-jwt"
 gem "jwt"
 
 group :development, :test do
