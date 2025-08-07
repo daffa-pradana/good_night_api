@@ -38,6 +38,7 @@ gem "thruster", require: false
 
 # Auth
 gem "jwt"
+gem "bcrypt", "~> 3.1.7"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
