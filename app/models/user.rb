@@ -6,6 +6,8 @@ class User < ApplicationRecord
 
   validates :name, presence: true, uniqueness: true
 
+  has_many :sleep_trackers, dependent: :destroy
+
   private
 
   def generate_token
