@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   namespace :v1 do
     post "/login", to: "sessions#create"
     post "sleep_tracker/toggle", to: "sleep_trackers#toggle"
+    get "sleep_tracker/followed", to: "sleep_trackers#followed"
     post "follow/:followed_id", to: "follows#create"
     delete "unfollow/:followed_id", to: "follows#destroy"
   end
