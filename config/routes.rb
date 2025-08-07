@@ -1,11 +1,9 @@
 Rails.application.routes.draw do
-  # Users endpoint
-  get "users/show"
-
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   devise_for :users,
-             skip: [ :registrations ],
+             skip: [:registrations],
              controllers: { sessions: "users/sessions" }
+
+  get "user", to: "users#show"
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.
