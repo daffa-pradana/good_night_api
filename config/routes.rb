@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   namespace :v1 do
     post "/login", to: "sessions#create"
+    post "sleep_tracker/toggle", to: "sleep_trackers#toggle"
   end
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
