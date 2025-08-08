@@ -51,5 +51,13 @@ group :development, :test do
   gem "rubocop-rails-omakase", require: false
   gem "rubocop", "~> 1.57"
 
+  # Tests
+  gem "rspec-rails"
+  gem "factory_bot_rails"
+
   gem "dotenv-rails", require: "dotenv/rails-now"
+
+  group :test do
+    gem "faker"
+  end
 end
