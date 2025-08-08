@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_07_145425) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_08_024307) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -31,6 +31,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_07_145425) do
     t.integer "duration"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_id", "clocked_in_at"], name: "index_sleep_trackers_on_user_and_clockedin_completed", order: { clocked_in_at: :desc }, where: "(clocked_out_at IS NOT NULL)"
     t.index ["user_id"], name: "index_sleep_trackers_on_user_id"
   end
 

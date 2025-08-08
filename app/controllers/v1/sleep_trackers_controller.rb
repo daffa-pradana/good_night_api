@@ -16,20 +16,19 @@ module V1
     end
 
     def followed
-      one_week_ago = 1.week.ago
-
-      followed_user_ids = @current_user.following.pluck(:id)
-
       latest_records = SleepTracker
-                        .where(user_id: followed_user_ids)
-                        .where("clocked_in_at >= ?", one_week_ago)
-                        .where.not(clocked_out_at: nil)
-                        .select("DISTINCT ON (user_id) *")
-                        .order("user_id, clocked_in_at DESC")
+        .joins("INNER JOIN follows ON follows.followed_id = sleep_trackers.user_id")
+        .where(follows: { follower_id: @current_user.id })
+        .where("sleep_trackers.clocked_in_at >= ?", 1.week.ago)
+        .where.not(sleep_trackers: { clocked_out_at: nil })
+        .select("DISTINCT ON (sleep_trackers.user_id) sleep_trackers.*")
+        .order("sleep_trackers.user_id, sleep_trackers.clocked_in_at DESC")
 
-      sorted = latest_records.sort_by(&:duration).reverse
+      sorted_records = SleepTracker
+        .from(latest_records, :sleep_trackers)
+        .order(duration: :desc)
 
-      render json: sorted.map { |record|
+      render json: sorted_records.map { |record|
         {
           user: {
             id: record.user.id,
