@@ -1,24 +1,96 @@
-# README
+# Sleep Tracker API
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A Rails-based API for tracking and sharing sleep records.  
+Provides endpoints to clock in/out sleep sessions, view weekly summaries, and follow other users.
 
-Things you may want to cover:
+---
 
-* Ruby version
+## Ruby Version
+3.3.0
 
-* System dependencies
+---
 
-* Configuration
+## Configuration
+Before running the app or tests, make sure to set the required environment variables.
 
-* Database creation
+```bash
+DB_USERNAME=db_username
+DB_PASSWORD=db_password
+DB_HOST=db_host
+```
 
-* Database initialization
+---
 
-* How to run the test suite
+## Running Test Suite
+To install dependencies and run the test suite:
 
-* Services (job queues, cache servers, search engines, etc.)
+```bash
+bundle install
+bundle exec rails db:create db:schema:load RAILS_ENV=test
+bundle exec rspec spec/requests/v1/sleep_trackers_spec.rb
+```
 
-* Deployment instructions
+---
 
-* ...
+## Running the Rails Server
+Start the server in development:
+```bash
+bin/rails server
+```
+Default server runs at:
+```bash
+http://localhost:3000
+```
+
+---
+
+## API Endpoints
+### Authentication
+<b>POST</b> `/v1/login` – log in <br>
+payload
+```json
+{
+  "user": {
+    "name": "username",
+    "password": "password"
+  }
+}
+```
+response
+```json
+{
+  "token": "...."
+}
+```
+
+### Sleep Tracker <br>
+<b>POST</b> `/v1/sleep_tracker/toggle` – Clock in / clock out <br>
+header
+```json
+{
+  "Authorization": "Bearer ...."
+}
+```
+<b>GET</b> `/v1/sleep_tracker/followed` – Get paginated sleep records from followed users <br>
+header
+```json
+{
+  "Authorization": "Bearer ...."
+}
+```
+
+### Users <br>
+<b>POST</b> `/v1/follow/:user_id` – Follow a user <br>
+header
+```json
+{
+  "Authorization": "Bearer ...."
+}
+```
+<b>DELETE</b> `/v1/unfollow/:user_id` – Unfollow a user <br>
+header
+```json
+{
+  "Authorization": "Bearer ...."
+}
+```
