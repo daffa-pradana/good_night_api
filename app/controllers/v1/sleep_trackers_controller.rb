@@ -19,6 +19,7 @@ module V1
       sleep_records =
         SleepTracker
           .from(followed_sleep_records, :sleep_trackers)
+          .includes(:user)
           .order(duration: :desc)
       sleep_records = paginate(sleep_records)
 

@@ -32,8 +32,9 @@ RSpec.describe "Sleep Trackers", type: :request do
     end
 
     it "doesn't do n+1 query" do
-      expect_max_queries(22) do
+      expect_max_queries(3) do
         get "/v1/sleep_tracker/followed", **as_user(@user_a)
+        expect(response).to have_http_status(:ok)
       end
     end
   end
