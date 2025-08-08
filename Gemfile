@@ -54,10 +54,11 @@ group :development, :test do
   # Tests
   gem "rspec-rails"
   gem "factory_bot_rails"
+  gem "pry"
 
   gem "dotenv-rails", require: "dotenv/rails-now"
+end
 
-  group :test do
-    gem "faker"
-  end
+group :test do
+  gem "faker"
 end
